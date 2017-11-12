@@ -2,5 +2,4 @@
 *.tfvars
 
 #.vscode files
-*.vscode
-settings.json
+.vscode/
