@@ -8,6 +8,7 @@ provider "aws" {
 resource "aws_instance" "example" {
     ami        = "${lookup(var.amis, var.region)}"
     instance_type = "t2.micro"
+    vpc_security_group_ids = ["sg-c97a71b0", "sg-c97a71b0"]
 
     tags {
         Name = "Terraform_Tutorial"
@@ -25,17 +26,4 @@ resource "aws_eip" "ip" {
 
 output "ip" {
     value = "${aws_eip.ip.public_ip}"
-}
-
-module "managment-vpc" {
-  #source = "git::ssh://git@bitbucket.org/digitalrigbitbucketteam/digitalrig-iaas-modules.git//terraform/modules/aws/network"
-  source = "../modules/aws/rig-3/network"
-  region = "${var.region}"
-  name = "${var.rigname}"
-  ansible-domain="${var.rigname}"
-  vpc_cidr        = "${var.config["vpc-net-cidr"]}"
-  azs             = "${split(",", var.config["availability-zones"])}" # AZs are region specific
-  private_subnets = "${split(",", var.config["internal-net-cidrs"])}" # Creating one private subnet per AZ
-  public_subnets  = "${split(",", var.config["dmz-net-cidrs"])}" # Creating one public subnet per AZ
-  owner = "${data.aws_caller_identity.current.arn}"
 }
