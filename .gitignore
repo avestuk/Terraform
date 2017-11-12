@@ -1,2 +1,6 @@
 # .tfvars files
 *.tfvars
+
+#.vscode files
+*.vscode
+settings.json
