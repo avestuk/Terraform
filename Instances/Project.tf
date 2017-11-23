@@ -6,7 +6,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "example" {
-    ami        = "${lookup(var.amis, var.region)}"
+    ami        = "${lookup(var.amis, var.region)}" # Points to an AMI I created with Python, Django, uWSGI and Nginx preinstalled
     instance_type = "t2.micro"
     vpc_security_group_ids = ["sg-c97a71b0", "sg-c97a71b0"]
 
